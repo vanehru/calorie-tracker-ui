@@ -1,4 +1,5 @@
 {
+    "type": "module",
     "name": "calorie-tracker-ui",
     "version": "1.0.0",
     "description": "A calorie tracker app with image upload and manual entry.",
