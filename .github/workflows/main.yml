@@ -2,13 +2,17 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - dev
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - dev
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
@@ -35,4 +39,4 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calorie-tracker-ui:latest
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calorie-tracker-ui:${{ github.ref_name == 'main' && 'main' || 'dev' }}-${{ github.run_number }}
